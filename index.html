@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="icon" type="image/png" href="./assets/img/favicon.png">
     <title>LadoreY</title>
     <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
 
@@ -24,7 +25,6 @@
             transform: translate(-50%, -50%);
             width: 80%;
             max-width: 600px;
-            padding: 2rem;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
@@ -48,8 +48,8 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 50px;
-            font-size: 2rem;
+            height: auto;
+            font-size: 1.75rem;
             color: #ccc;
             gap: 1rem;
             max-width: 100%;
@@ -68,6 +68,18 @@
             .loading-time {
                 font-size: 1.5rem;
             }
+
+            #clock {
+                display: flex;
+                flex-wrap: wrap;
+            }
+
+            .time-day,.time-hours,.time-seconds {
+                flex-basis: 100%;
+                margin-bottom: 0.5em;
+                /* 可根据实际情况调整间距 */
+            }
+
         }
     </style>
 </head>
@@ -76,7 +88,6 @@
     <div class="container d-flex justify-content-center align-items-center h-100">
         <div class="card card-container text-center">
             <div class="card-body" id="flip-card">
-                <!-- 显示加载时间和动画 -->
                 <div class="loading-time" id="time-animation">
                     <span id="clock-box-inside-text"></span>
                     <div id="clock"></div>
@@ -107,7 +118,11 @@
             var hours = Math.floor((differenceInMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             var minutes = Math.floor(((differenceInMs % (1000 * 60 * 60 * 24)) % (1000 * 60 * 60)) / (1000 * 60));
             var seconds = Math.floor((((differenceInMs % (1000 * 60 * 60 * 24)) % (1000 * 60 * 60)) % (1000 * 60)) / 1000);
-            var formattedTime = `${days} 天 ${hours} 小时 ${minutes} 分钟 ${seconds} 秒`;
+            var formattedTime = `
+                                <span class="time-day">${days} 天</span>
+                                <span class="time-hours">${hours} 小时 ${minutes} 分钟</span>
+                                <span class="time-seconds">${seconds} 秒</span>
+                                `;
             $("#clock").html(formattedTime);
         }
 
